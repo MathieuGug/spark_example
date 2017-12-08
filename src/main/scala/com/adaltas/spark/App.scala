@@ -1,5 +1,6 @@
 package com.adaltas.spark
 
+import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -17,6 +18,7 @@ object App {
     val dataset = sc.textFile(s"hdfs://${args(0)}")
     dataset.cache()
 
+    /*
     val output = dataset
       .map(line => line.trim)
       .repartition(10)
@@ -24,6 +26,14 @@ object App {
       .filter(ride => ride.isStarted)
 
     output.saveAsTextFile("spark_example_jar_output")
+    */
+
+    val hc = new HiveContext(sc)
+    val df = hc.createDataFrame(dataset.map(line => TaxiRide.row(line)), TaxiRide.schema)
+    df.show()
+
+    df.filter(df("isStarted") === (true))
+      .write.save()
 
     sc.stop()
   }
