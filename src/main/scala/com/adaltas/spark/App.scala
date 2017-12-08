@@ -33,7 +33,7 @@ object App {
     df.show()
 
     df
-      .write.saveAsTable("spark_example_output_df")
+      .write.saveAsTable("output_mguglielmino")
 
     sc.stop()
   }
