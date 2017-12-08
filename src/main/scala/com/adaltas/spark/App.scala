@@ -14,7 +14,7 @@ object App {
     val sc: SparkContext = new SparkContext(sconf)
     println(s"APP-ID=${sc.applicationId}")
 
-    val dataset = sc.textFile(s"hdfs://${args(0}")
+    val dataset = sc.textFile(s"hdfs://${args(0)}")
     dataset.cache()
 
     val output = dataset
