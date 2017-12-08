@@ -33,7 +33,7 @@ object App {
     df.show()
 
     df.filter(df("isStarted") === (true))
-      .write.save()
+      .write.saveAsTable("spark_example_output_df")
 
     sc.stop()
   }
