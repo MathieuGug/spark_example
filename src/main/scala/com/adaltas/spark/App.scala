@@ -32,7 +32,7 @@ object App {
     val df = hc.createDataFrame(dataset.map(line => TaxiRide.row(line)), TaxiRide.schema)
     df.show()
 
-    df.filter(df("isStarted") === (true))
+    df
       .write.saveAsTable("spark_example_output_df")
 
     sc.stop()
