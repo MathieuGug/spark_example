@@ -20,8 +20,8 @@ object App {
     val output = dataset
       .map(line => line.trim)
       .repartition(10)
-      .map(line => ("value", line.split(",")))
-      .filter(tuple => tuple._2(1) == "START")
+      .map(line => TaxiRide(line))
+      .filter(ride => ride.isStarted)
 
     output.saveAsTextFile("spark_example_jar_output")
 
